@@ -3,10 +3,16 @@ import close from '../../public/assets/images/icon-remove-item.svg'
 import tree from '../../public/assets/images/icon-carbon-neutral.svg'
 import cake from '../../public/assets/images/illustration-empty-cart.svg'
 import greenTick from '../../public/assets/images/icon-order-confirmed.svg'
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) => {
   const [orderConfirmed, setOrderConfirmed] = useState(false)
+  const [loading, setLoading] = useState(false)
   const handleConfirmOrder = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
     if (orderConfirmed) {
       closeCart();
       resetList();
@@ -14,11 +20,18 @@ const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) 
       setOrderConfirmed(true);
     }
   }
-
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center w-[90%] mx-auto">
+  //       <img src={tree} alt="" />
+  //       <h1 className='text-2xl font-extrabold text-rose-950 py-5'>Loading...</h1>
+  //     </div>
+  //   )
+  // }
   return (
     <section className='bg-white rounded-md '>
       <div className="w-[90%] mx-auto">
-        {orderConfirmed ?
+        {orderConfirmed && !loading ?
         <div>
           <img src={greenTick} alt="" />
           <h1 className='text-3xl font-extrabold  py-2'>Order <br />Confirmed</h1>
@@ -38,7 +51,7 @@ const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) 
           <div className="max-h-[15rem] overflow-y-auto smooth-scroll">
            { dessertsList.map((dessert) => (
             orderConfirmed? 
-              <div key = {dessert.id} className='w-[90%] mx-auto'>
+               loading? <Skeleton className="bg-rose300 h-9 w-full mb-4" />: <div key = {dessert.id} className='w-[90%] mx-auto'>
                 <div className="flex justify-between items-center">
                   <div className="flex gap-4 items-center">
                     <img src={dessert.image.thumbnail} width={60} alt="" className='rounded-md' />
@@ -73,14 +86,14 @@ const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) 
           </div>
           <div className={`flex justify-between items-center ${orderConfirmed?'w-[90%] mx-auto mt-3':''} `}>
             <p>Order Total</p>
-            <p className='text-2xl font-semibold'>${totalPrice.toFixed(2)}</p>
+            {loading? <Skeleton className="bg-rose300 h-9 w-1/4 mb-2" />:<p className='text-2xl font-semibold'>${totalPrice.toFixed(2)}</p>}
           </div>
         </div>
        { !orderConfirmed && <div className="flex gap-3 justify-center py-3 my-5 items-center bg-[#fcf9f7] rounded-md">
           <img src={tree} alt="" />
           <p>This is a <span className="font-semibold">carbon-neutral</span> delivery</p>
         </div>}
-        <button onClick={handleConfirmOrder} className='bg-red text-white text-[1.2rem] rounded-full w-full py-4 mb-6'>{`${orderConfirmed?'Start New Order':'Confirm Order'}`}</button>
+        <button onClick={handleConfirmOrder} className={` ${loading? ' cursor-not-allowed opacity-80 ': ''}bg-red text-white text-[1.2rem] rounded-full w-full py-4 mb-6`}>{`${orderConfirmed && !loading?'Start New Order':'Confirm Order'}  `}</button>
         </>}
       </div>
     </section>

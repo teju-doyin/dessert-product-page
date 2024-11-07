@@ -28,9 +28,9 @@ const Header = ({desserts, onRemove, resetList}) => {
 
         {/* Drawer Content for Cart */}
         <DrawerContent>
-          <DrawerClose asChild>
+          {/* <DrawerClose asChild>
             <button className="close-cart-button" onClick={toggleCart}>Close</button>
-          </DrawerClose>
+          </DrawerClose> */}
           <Cart 
             dessertsList={dessertsList} 
             removeDesserts={onRemove} 
