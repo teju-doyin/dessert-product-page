@@ -63,7 +63,7 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
       <div>
         {desserts.map((dessert) => (
           <div key={dessert.id}>
-            <div className="relative">
+            <div className="relative mt-3">
               <img
                 src={dessert.image.mobile}
                 alt={dessert.name}
