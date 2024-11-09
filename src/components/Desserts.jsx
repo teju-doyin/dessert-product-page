@@ -46,7 +46,7 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
       <section>
         <div>
           {Array.from({ length: 9 }).map((_, index) => (
-            <div key={index} className="mb-8">
+            <div key={index} className="mb-8 mt-4">
               <Skeleton className="bg-rose300 w-full h-60 rounded-lg mb-12" />
               <Skeleton className="bg-rose300 h-4 w-1/5 mb-2" />
               <Skeleton className="bg-rose300 h-5 w-1/3 mb-2" />
