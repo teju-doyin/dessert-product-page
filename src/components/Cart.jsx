@@ -16,6 +16,7 @@ const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) 
     if (orderConfirmed) {
       closeCart();
       resetList();
+      setOrderConfirmed(false)
     } else {
       setOrderConfirmed(true);
     }
@@ -32,7 +33,7 @@ const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) 
     <section className='bg-white rounded-md '>
       <div className="w-[90%] mx-auto">
         {orderConfirmed && !loading ?
-        <div>
+        <div className='pt-3'>
           <img src={greenTick} alt="" />
           <h1 className='text-3xl font-extrabold  py-2'>Order <br />Confirmed</h1>
           <p>We hope you enjoy your food!</p>

@@ -24,6 +24,20 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
     };
     fetchDesserts();
   }, []);
+  function useMediaQuery(query) {
+    const [matches, setMatches] = useState(window.matchMedia(query).matches);
+  
+    useEffect(() => {
+      const media = window.matchMedia(query);
+      const listener = () => setMatches(media.matches);
+      media.addEventListener('change', listener);
+      return () => media.removeEventListener('change', listener);
+    }, [query]);
+  
+    return matches;
+  }
+  const isTablet = useMediaQuery('(min-width: 640px)');
+  const isLaptop = useMediaQuery('(min-width: 768px)');
 
   const increaseQuantity = (dessert) => {
     const newQuantity = (selectedDesserts[dessert.id]?.quantity || 0) + 1;
@@ -44,12 +58,12 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
   if (loading) {
     return (
       <section>
-        <div>
+        <div className='sm:grid md:grid-cols-2 lg:grid-cols-3 gap-7 w-full  md:mt-5 '>
           {Array.from({ length: 9 }).map((_, index) => (
-            <div key={index} className="mb-8 mt-4">
+            <div key={index} className="mb-8 mt-4 ">
               <Skeleton className="bg-rose300 w-full h-60 rounded-lg mb-12" />
-              <Skeleton className="bg-rose300 h-4 w-1/5 mb-2" />
-              <Skeleton className="bg-rose300 h-5 w-1/3 mb-2" />
+              <Skeleton className="bg-rose300 h-4 w-1/5 mb-2 md:w-2/5" />
+              <Skeleton className="bg-rose300 h-5 w-1/3 mb-2 md:w-2/3" />
               <Skeleton className="bg-rose300 h-4 w-1/5" />
             </div>
           ))}
@@ -60,12 +74,12 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
 
   return (
     <section>
-      <div>
+      <div className='md:grid md:grid-cols-2 lg:grid-cols-3 gap-7 md:max-w-[900px] md:mt-5'>
         {desserts.map((dessert) => (
           <div key={dessert.id}>
             <div className="relative mt-3">
               <img
-                src={dessert.image.mobile}
+                src={isTablet?  (isLaptop? dessert.image.desktop: dessert.image.tablet): dessert.image.mobile}
                 alt={dessert.name}
                 className={`rounded-xl ${selectedDesserts[dessert.id] ? 'border-2 border-red' : ''}`}
               />
@@ -73,19 +87,19 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
               {!selectedDesserts[dessert.id] ? (
                 <div
                   onClick={() => increaseQuantity(dessert)}
-                  className="absolute flex gap-4 -bottom-6 left-[100px] bg-white border border-rose-950 cursor-pointer px-5 py-3 rounded-3xl"
+                  className="absolute flex gap-4 -bottom-6 left-[100px] md:left-[55px] hover:border-red hover:opacity-80 hover:text-red hover:transition hover:delay-100 bg-white border border-rose-950 cursor-pointer px-5 py-3 rounded-3xl"
                 >
                   <img src={cart} alt="" />
                   <p className="font-semibold">Add to Cart</p>
                 </div>
               ) : (
-                <div className="absolute flex gap-8 -bottom-6 left-[100px] bg-red px-5 py-3 rounded-full">
+                <div className="absolute flex gap-8 -bottom-6 left-[100px] md:left-[55px] bg-red px-5 py-3 rounded-full">
                   <img
                     src={minus}
                     alt="decrease"
                     width={28}
                     onClick={() => decreaseQuantity(dessert)}
-                    className="cursor-pointer border border-white rounded-full px-2 py-2"
+                    className="cursor-pointer border border-white rounded-full px-2 py-2 "
                   />
                   <p className="font-semibold text-white mt-1">
                     {selectedDesserts[dessert.id]?.quantity || 0}
@@ -95,7 +109,7 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
                     alt="increase"
                     width={28}
                     onClick={() => increaseQuantity(dessert)}
-                    className="cursor-pointer border border-white rounded-full px-2 py-2"
+                    className="cursor-pointer border border-white rounded-full px-2 py-2 "
                   />
                 </div>
               )}
