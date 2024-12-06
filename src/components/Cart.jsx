@@ -21,14 +21,7 @@ const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) 
       setOrderConfirmed(true);
     }
   }
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center w-[90%] mx-auto">
-  //       <img src={tree} alt="" />
-  //       <h1 className='text-2xl font-extrabold text-rose-950 py-5'>Loading...</h1>
-  //     </div>
-  //   )
-  // }
+  
   return (
     <section className='bg-white rounded-md '>
       <div className="w-[90%] mx-auto">
@@ -53,7 +46,7 @@ const Cart = ({dessertsList, removeDesserts, totalPrice, closeCart, resetList}) 
            { dessertsList.map((dessert) => (
             orderConfirmed? 
                loading? <Skeleton className="bg-rose300 h-9 w-full mb-4" />: <div key = {dessert.id} className='w-[90%] mx-auto'>
-                <div className="flex justify-between items-center">
+                <div key = {dessert.id} className="flex justify-between items-center">
                   <div className="flex gap-4 items-center">
                     <img src={dessert.image.thumbnail} width={60} alt="" className='rounded-md' />
                     <div className="">

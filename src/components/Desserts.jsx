@@ -58,12 +58,12 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
   if (loading) {
     return (
       <section>
-        <div className='sm:grid md:grid-cols-2 lg:grid-cols-3 gap-7 w-full  md:mt-5 '>
+        <div className='sm:grid md:grid-cols-2  lg:grid-cols-3 gap-7 w-full  lg:mt-5 '>
           {Array.from({ length: 9 }).map((_, index) => (
             <div key={index} className="mb-8 mt-4 ">
               <Skeleton className="bg-rose300 w-full h-60 rounded-lg mb-12" />
-              <Skeleton className="bg-rose300 h-4 w-1/5 mb-2 md:w-2/5" />
-              <Skeleton className="bg-rose300 h-5 w-1/3 mb-2 md:w-2/3" />
+              <Skeleton className="bg-rose300 h-4 w-1/5 mb-2 lg:w-2/5" />
+              <Skeleton className="bg-rose300 h-5 w-1/3 mb-2 lg:w-2/3" />
               <Skeleton className="bg-rose300 h-4 w-1/5" />
             </div>
           ))}
@@ -74,7 +74,7 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
 
   return (
     <section>
-      <div className='md:grid md:grid-cols-2 lg:grid-cols-3 gap-7 md:max-w-[900px] md:mt-5'>
+      <div className='lg:grid md:grid-cols-2 lg:grid-cols-3 gap-7 lg:max-w-[900px] lg:mt-5'>
         {desserts.map((dessert) => (
           <div key={dessert.id}>
             <div className="relative mt-3">
@@ -87,13 +87,13 @@ const Desserts = ({ handleAddToCart, resetQuantity, selectedDesserts }) => {
               {!selectedDesserts[dessert.id] ? (
                 <div
                   onClick={() => increaseQuantity(dessert)}
-                  className="absolute flex gap-4 -bottom-6 left-[100px] md:left-[55px] hover:border-red hover:opacity-80 hover:text-red hover:transition hover:delay-100 bg-white border border-rose-950 cursor-pointer px-5 py-3 rounded-3xl"
+                  className="absolute flex gap-4 -bottom-6 left-[100px] lg:left-[55px] hover:border-red hover:opacity-80 hover:text-red hover:transition hover:delay-100 bg-white border border-rose-950 cursor-pointer px-5 py-3 rounded-3xl"
                 >
                   <img src={cart} alt="" />
                   <p className="font-semibold">Add to Cart</p>
                 </div>
               ) : (
-                <div className="absolute flex gap-8 -bottom-6 left-[100px] md:left-[55px] bg-red px-5 py-3 rounded-full">
+                <div className="absolute flex gap-8 -bottom-6 left-[100px] lg:left-[55px] bg-red px-5 py-3 rounded-full">
                   <img
                     src={minus}
                     alt="decrease"
